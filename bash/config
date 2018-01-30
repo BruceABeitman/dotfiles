@@ -1,0 +1,33 @@
+function take {
+  mkdir $1
+  cd $1
+}
+
+function title {
+  echo -ne "\033]0;"$*"\007"
+}
+
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \[\1\]/'
+}
+
+parse_git_tag () {
+  git describe --tags 2> /dev/null
+}
+
+parse_git_branch_or_tag() {
+  local OUT="$(parse_git_branch)"
+  if [ "$OUT" == " ((no branch))" ]; then
+    OUT="($(parse_git_tag))";
+  fi
+  echo $OUT
+}
+
+function proml {
+
+  local        BLUE="\[\033[0;34m\]"
+  local     DEFAULT="\[\033[0m\]"
+
+  PS1="\n\u: \w $BLUE\$(parse_git_branch_or_tag) $DEFAULT \n➥ "
+}
+proml

@@ -1,0 +1,5 @@
+alias c=clear
+alias h=history
+alias l='ls -l'
+alias src='source ~/.bashrc'
+alias tm='tmuxinator'
