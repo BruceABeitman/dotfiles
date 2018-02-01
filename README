@@ -1,0 +1,4 @@
+Clone project
+
+Place the following in bash_profile:
+[[ -s ~/.bashrc ]] && source ~/.bashrc
