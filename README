@@ -1,4 +1,10 @@
-Clone project
+# My dotfile setup
 
-Place the following in bash_profile:
+## How to use
+
+Clone project anywhere in home directory
+
+Place the following in .bash_profile:
+```
 [[ -s ~/.bashrc ]] && source ~/.bashrc
+```
