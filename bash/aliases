@@ -3,6 +3,9 @@ alias h=history
 alias l='ls -l'
 alias src='source ~/.bash_profile '
 alias tm='tmuxinator'
+alias mx='tmuxinator'
+alias tkall='tmux kill-server'
+alias tls='tmux ls'
 
 # git aliases start
 alias gs='git status '

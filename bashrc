@@ -18,6 +18,8 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 
 # Copy vimrc to home directory
 cp .vimrc ~/
+# Copy tmux.conf to home director
+cp .tmux.conf ~/
 
 # Reposition current directory to be home
 cd

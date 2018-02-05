@@ -33,6 +33,19 @@ autocmd BufWritePre * :%s/\s\+$//e
 :command NF NERDTreeFind
 :command RC RuboCop
 
+" Show Bookmarks by default
+let NERDTreeShowBookmarks=1
+" Auto open nerdtree in vim
+autocmd VimEnter * NERDTree
+" Open developmen bookmark
+autocmd VimEnter * OpenBookmark dev
+" Set focus to primary window
+autocmd VimEnter * wincmd l
+" Set focus to primary window
+autocmd VimEnter * NERDTreeFind
+autocmd VimEnter * wincmd l
+" Find current file in nerdtree
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 

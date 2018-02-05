@@ -2,6 +2,9 @@ function take {
   mkdir $1
   cd $1
 }
+function new {
+  tmux new -s $1
+}
 
 function title {
   echo -ne "\033]0;"$*"\007"
