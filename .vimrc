@@ -41,10 +41,10 @@ autocmd VimEnter * NERDTree
 autocmd VimEnter * OpenBookmark dev
 " Set focus to primary window
 autocmd VimEnter * wincmd l
-" Set focus to primary window
-autocmd VimEnter * NERDTreeFind
-autocmd VimEnter * wincmd l
 " Find current file in nerdtree
+autocmd VimEnter * NERDTreeFind
+" Set focus to primary window
+autocmd VimEnter * wincmd l
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -76,6 +76,8 @@ let mapleader= ","
 " Plugin Plugin here for Ruby on Rails
 " git
 Plugin 'tpope/vim-fugitive'
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
 " ruby command for rvm
 Plugin 'tpope/vim-rvm'
 " quickly move cursor, try ,,w
