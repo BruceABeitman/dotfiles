@@ -6,6 +6,10 @@ alias tm='tmuxinator'
 alias mx='tmuxinator'
 alias tkall='tmux kill-server'
 alias tls='tmux ls'
+# use the brew installed ctags
+alias ctags='/usr/local/bin/ctags'
+# build tags for ruby, exclude git, include dependencies
+alias ctagsra='ctags -R --languages=ruby --exclude=.git . $(bundle list --paths)'
 
 # git aliases start
 alias gs='git status '
