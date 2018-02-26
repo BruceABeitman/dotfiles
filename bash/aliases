@@ -10,6 +10,8 @@ alias tls='tmux ls'
 alias ctags='/usr/local/bin/ctags'
 # build tags for ruby, exclude git, include dependencies
 alias ctagsra='ctags -R --languages=ruby --exclude=.git . $(bundle list --paths)'
+# ask for git password for start of a session
+ssh-add ~/.ssh/id_rsa
 
 # git aliases start
 alias gs='git status '

@@ -4,7 +4,7 @@ set winwidth=75
 " We have to have a winheight bigger than we want to set winminheight. But if
 " we set winheight to be huge before winminheight, the winminheight set will
 " fail.
-set winheight=5
+set winheight=40
 set winminheight=5
 set winheight=999
 
@@ -64,7 +64,7 @@ Plugin 'ngmy/vim-rubocop'
 Plugin 'w0rp/ale'
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <C-f> :ALEFix<CR>
+nmap <silent> <C-h> :ALEFix<CR>
 nmap <silent> <C-l> :ALEToggle<CR>
 let g:ale_fixers = {
 \   'ruby': ['rubocop'],
@@ -73,11 +73,19 @@ let g:ale_fixers = {
 let g:ale_fix_on_save = 0
 highlight ALEWarning ctermbg=DarkMagenta
 
+" Status-Line
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
+" Searching with Silver Searcher
 Plugin 'rking/ag.vim'
+" Make search always the project directory
+let g:ag_working_path_mode="r"
+nmap  <silent> <C-f> :Ag "def <cword>"<CR>
 
 Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-rake'
@@ -93,8 +101,15 @@ Plugin 'tpope/vim-bundler'
 " ruby command for rvm
 Plugin 'tpope/vim-rvm'
 
+" gitgutter -- shows differences in git in the left column
+Plugin 'airblade/vim-gitgutter'
+
 Plugin 'majutsushi/tagbar'
-nnoremap <C-]> :execute "vertical ptag " . expand("<cword>")<CR>
+let g:tagbar_ctags_bin='/usr/local/bin/ctags'
+
+" TODO Find good shortcuts for opening tags in split/horizontal
+nnoremap <C-[> :execute "horizontal ptag " . expand("<cword>")<CR>
+nnoremap <C-\> :execute "vertical ptag " . expand("<cword>")<CR>
 
 if has("gui_running")
   colorscheme desert
@@ -162,7 +177,7 @@ Plugin 'slim-template/vim-slim.git'
 autocmd BufNewFile,BufRead *.slim set filetype=slim
 autocmd BufNewFile,BufRead *.es6 set filetype=javascript
 
-" The Silver Searcher
+" Ctrlp and using the Silver Searcher
 if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
