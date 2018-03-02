@@ -1,5 +1,6 @@
 alias c=clear
 alias h=history
+alias ls='ls -GH'
 alias l='ls -l'
 alias src='source ~/.bash_profile '
 alias tm='tmuxinator'
@@ -11,7 +12,7 @@ alias ctags='/usr/local/bin/ctags'
 # build tags for ruby, exclude git, include dependencies
 alias ctagsra='ctags -R --languages=ruby --exclude=.git . $(bundle list --paths)'
 # ask for git password for start of a session
-ssh-add ~/.ssh/id_rsa
+alias sad='ssh-add ~/.ssh/id_rsa'
 
 # git aliases start
 alias gs='git status '

@@ -1,12 +1,30 @@
 set nocompatible               " be iMproved
 
-set winwidth=75
+set winwidth=79
+set winheight=999
 " We have to have a winheight bigger than we want to set winminheight. But if
 " we set winheight to be huge before winminheight, the winminheight set will
 " fail.
 set winheight=40
-set winminheight=5
-set winheight=999
+"set winminheight=5
+
+" Settings stolen from Gary Bernhardt
+" make searches case-sensitive only if they contain upper-case characters
+set ignorecase smartcase
+" If a file is changed outside of vim, automatically reload it without asking
+set autoread
+" Turn folding off for real, hopefully
+set foldmethod=manual
+set nofoldenable
+" Fix slow O inserts
+:set timeout timeoutlen=1000 ttimeoutlen=100
+" Don't make backups at all
+set nobackup
+set nowritebackup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
 
 " 1 tab to 2 space for ruby
 set tabstop=2
@@ -59,6 +77,10 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
+" Status-Line
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
 " Linting
 Plugin 'ngmy/vim-rubocop'
 Plugin 'w0rp/ale'
@@ -71,11 +93,10 @@ let g:ale_fixers = {
 \}
 " Auto-fixes lint errors on save
 let g:ale_fix_on_save = 0
-highlight ALEWarning ctermbg=DarkMagenta
-
-" Status-Line
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
+" Ignore the following lint issues
+let b:ale_warn_about_frozen_string_literal = 0
 
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
@@ -83,9 +104,12 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 
 " Searching with Silver Searcher
 Plugin 'rking/ag.vim'
-" Make search always the project directory
-let g:ag_working_path_mode="r"
-nmap  <silent> <C-f> :Ag "def <cword>"<CR>
+" Custom function for runnign AG while ignoring specs and tags
+function! s:AgIgnore(myParam)
+  execute ":Ag " a:myParam " --ignore spec --ignore tags"
+endfunction
+command! -nargs=1 AG call s:AgIgnore(<f-args>)
+map <C-f> :AG <C-R><C-W><CR>
 
 Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-rake'
@@ -107,9 +131,9 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'majutsushi/tagbar'
 let g:tagbar_ctags_bin='/usr/local/bin/ctags'
 
-" TODO Find good shortcuts for opening tags in split/horizontal
-nnoremap <C-[> :execute "horizontal ptag " . expand("<cword>")<CR>
-nnoremap <C-\> :execute "vertical ptag " . expand("<cword>")<CR>
+"nnoremap <C-[> :execute "horizontal ptag " . expand("<cword>")<CR>
+"nnoremap <C-\> :execute "vertical ptag " . expand("<cword>")<CR>
+map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 if has("gui_running")
   colorscheme desert
